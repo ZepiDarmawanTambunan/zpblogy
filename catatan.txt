@@ -1,0 +1,4 @@
+- npm init -y
+- npm i bcrypt dotenv express jsonwebtoken morgan cookie-parser mysql2 sequelize sequelize-cli multer cors
+- npx sequelize-cli init
+- npx sequelize-cli migration:generate --name create-refresh-tokens
