@@ -1,8 +1,9 @@
 // models/User.js
+import { Sequelize, DataTypes, Model } from 'sequelize';
+import config from '../config/config.js';
+import Role from './Role';
 
-const { Sequelize, DataTypes, Model } = require('sequelize');
-const sequelize = new Sequelize(/* konfigurasi koneksi Anda */);
-const Role = require('./Role'); // Import model Role
+const sequelize = new Sequelize(config.development); // Menggunakan konfigurasi development, bisa disesuaikan dengan lingkungan yang tepat
 
 class User extends Model {}
 
@@ -30,7 +31,7 @@ User.init({
   role_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    defaultValue: 1,
+    defaultValue: 3,
   },
   status: {
     type: DataTypes.TINYINT,

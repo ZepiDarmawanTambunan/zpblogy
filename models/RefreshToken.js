@@ -1,8 +1,9 @@
 // models/RefreshToken.js
+import { Sequelize, DataTypes, Model } from 'sequelize';
+import config from '../config/config.js';
+import User from './User';
 
-const { Sequelize, DataTypes, Model } = require('sequelize');
-const sequelize = new Sequelize(/* konfigurasi koneksi Anda */);
-const User = require('./User'); // Import model User
+const sequelize = new Sequelize(config.development); // Menggunakan konfigurasi development, bisa disesuaikan dengan lingkungan yang tepat
 
 class RefreshToken extends Model {}
 

@@ -1,8 +1,9 @@
 // models/Image.js
+import { Sequelize, DataTypes, Model } from 'sequelize';
+import config from '../config/config.js';
+import Article from './Article';
 
-const { Sequelize, DataTypes, Model } = require('sequelize');
-const sequelize = new Sequelize(/* konfigurasi koneksi Anda */);
-const Article = require('./Article'); // Import model Role
+const sequelize = new Sequelize(config.development); // Menggunakan konfigurasi development, bisa disesuaikan dengan lingkungan yang tepat
 
 class Image extends Model {}
 

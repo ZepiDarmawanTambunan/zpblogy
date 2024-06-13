@@ -1,7 +1,8 @@
 // models/Article.js
+import { Sequelize, DataTypes, Model } from 'sequelize';
+import config from '../config/config.js';
 
-const { Sequelize, DataTypes, Model } = require('sequelize');
-const sequelize = new Sequelize(/* konfigurasi koneksi Anda */);
+const sequelize = new Sequelize(config.development); // Menggunakan konfigurasi development, bisa disesuaikan dengan lingkungan yang tepat
 
 class Article extends Model {}
 
