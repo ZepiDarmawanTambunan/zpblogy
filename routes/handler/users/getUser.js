@@ -1,4 +1,5 @@
 import User from '../../../models/User.js';
+import Role from '../../../models/Role.js'
 
 const getUser = async (req, res) => {
     const { id } = req.params;

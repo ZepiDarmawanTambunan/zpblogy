@@ -7,8 +7,7 @@ const register = async (req, res) => {
     const schema = Joi.object({
         username: Joi.string().required(),
         email: Joi.string().email().required(),
-        password: Joi.string().min(6).required(),
-        profession: Joi.string().optional()
+        password: Joi.string().min(6).required()
     });
 
     try {
@@ -32,7 +31,8 @@ const register = async (req, res) => {
             username: req.body.username,
             email: req.body.email,
             password: hashedPassword,
-            profession: req.body.profession,
+            role_id: 3, // Default role_id sesuai dengan model User
+            status: 1, // Default status (aktif)
         };
 
         // Buat user baru

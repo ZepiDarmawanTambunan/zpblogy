@@ -21,7 +21,7 @@ const getUsers = async (req, res) => {
 
         const users = await User.findAndCountAll({
             where: whereConditions,
-            include: [{ model: Role, as: 'role' }], // Include role if needed
+            include: [{ model: Role, as: 'Role' }], // Include role using correct alias
             limit: parseInt(limit),
             offset: (page - 1) * limit
         });
