@@ -1,7 +1,7 @@
 // models/User.js
 import { Sequelize, DataTypes, Model } from 'sequelize';
 import config from '../config/config.js';
-import Role from './Role';
+import Role from './Role.js';
 
 const sequelize = new Sequelize(config.development); // Menggunakan konfigurasi development, bisa disesuaikan dengan lingkungan yang tepat
 
@@ -57,4 +57,4 @@ User.init({
 
 User.belongsTo(Role, { foreignKey: 'role_id' });
 
-module.exports = User;
+export default User;

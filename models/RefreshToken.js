@@ -1,7 +1,7 @@
 // models/RefreshToken.js
 import { Sequelize, DataTypes, Model } from 'sequelize';
 import config from '../config/config.js';
-import User from './User';
+import User from './User.js';
 
 const sequelize = new Sequelize(config.development); // Menggunakan konfigurasi development, bisa disesuaikan dengan lingkungan yang tepat
 
@@ -42,4 +42,4 @@ RefreshToken.init({
 // Definisikan relasi antara RefreshToken dan User
 RefreshToken.belongsTo(User, { foreignKey: 'user_id' });
 
-module.exports = RefreshToken;
+export default RefreshToken;

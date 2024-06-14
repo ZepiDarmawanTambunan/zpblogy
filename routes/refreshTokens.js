@@ -3,6 +3,6 @@ import * as refreshToken from './handler/refresh-tokens/index.js';
 
 const router = express.Router();
 
-router.post('/refresh-token', refreshToken);
+router.post('/refresh-token', refreshToken.refreshToken);
 
 export default router;

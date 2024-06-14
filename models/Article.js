@@ -45,4 +45,4 @@ Article.init({
   timestamps: false // Jika Anda ingin menggunakan field 'createdAt' dan 'updatedAt' yang dihasilkan secara otomatis oleh Sequelize, setel nilai ini menjadi true
 });
 
-module.exports = Article;
+export default Article;

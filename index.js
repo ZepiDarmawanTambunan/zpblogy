@@ -9,6 +9,8 @@ import logger from 'morgan';
 // ROUTES
 import testingRouter from './routes/testing.js';
 import rolesRouter from './routes/roles.js';
+import userRouter from './routes/users.js';
+import refreshTokenRouter from './routes/refreshTokens.js';
 
 dotenv.config();
 const app = express();
@@ -26,6 +28,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 // ROUTES & MIDDLEWARE
 app.use('/testing', testingRouter);
 app.use('/api/role', rolesRouter);
+app.use('/api/user', userRouter);
+app.use('/api/refresh-token', refreshTokenRouter);
 
 app.use((err, req, res, next) => {
     const statusCode = err.statusCode || 500;

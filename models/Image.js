@@ -1,7 +1,7 @@
 // models/Image.js
 import { Sequelize, DataTypes, Model } from 'sequelize';
 import config from '../config/config.js';
-import Article from './Article';
+import Article from './Article.js';
 
 const sequelize = new Sequelize(config.development); // Menggunakan konfigurasi development, bisa disesuaikan dengan lingkungan yang tepat
 
@@ -46,4 +46,4 @@ Image.init({
 // Definisikan relasi antara Image dan Article
 Image.belongsTo(Article, { foreignKey: 'articleId' });
 
-module.exports = Image;
+export default Image;
