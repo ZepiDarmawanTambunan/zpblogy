@@ -11,6 +11,7 @@ import testingRouter from './routes/testing.js';
 import rolesRouter from './routes/roles.js';
 import userRouter from './routes/users.js';
 import refreshTokenRouter from './routes/refreshTokens.js';
+import articleRouter from './routes/articles.js';
 
 dotenv.config();
 const app = express();
@@ -24,12 +25,15 @@ const __dirname = path.dirname(__filename);
 // MIDDLEWARES
 // izinkan agar react bisa akses http://localhost:5000/gambar.png diupload /public
 app.use(express.static(path.join(__dirname, 'public')));
+import verifyToken from './middlewares/verifyToken.js';
+import can from './middlewares/permission.js';
 
 // ROUTES & MIDDLEWARE
 app.use('/testing', testingRouter);
-app.use('/api/role', rolesRouter);
+app.use('/api/role', verifyToken, can('master'), rolesRouter);
 app.use('/api/user', userRouter);
 app.use('/api/refresh-token', refreshTokenRouter);
+app.use('/api/article', articleRouter);
 
 app.use((err, req, res, next) => {
     const statusCode = err.statusCode || 500;
