@@ -1,27 +1,25 @@
 'use strict';
-/** @type {import('sequelize-cli').Migration} */
+
 module.exports = {
-  async up(queryInterface, Sequelize) {
+  up: async function(queryInterface, Sequelize) {
     const transaction = await queryInterface.sequelize.transaction();
     try {
-      await queryInterface.createTable('images', {
+      await queryInterface.createTable('tags', {
         id: {
           allowNull: false,
           autoIncrement: true,
           primaryKey: true,
           type: Sequelize.INTEGER
         },
-        url: {
+        name: {
+          allowNull: false,
+          unique: true,
           type: Sequelize.STRING
-        },
-        articleId: {
-          type: Sequelize.INTEGER,
-          references: {
-            model: 'Articles',
-            key: 'id'
-          },
-          onUpdate: 'CASCADE',
-          onDelete: 'CASCADE'
+        },        
+        status: {
+          type: Sequelize.TINYINT,
+          allowNull: false,
+          defaultValue: 1,
         },
         createdAt: {
           allowNull: false,
@@ -33,17 +31,17 @@ module.exports = {
           type: Sequelize.DATE,
           defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
         }
-      });
+      }, { transaction });
       await transaction.commit();
     } catch (error) {
       await transaction.rollback();
       throw error;
     }
   },
-  async down (queryInterface, Sequelize) {
+  down: async function(queryInterface, Sequelize) {
     const transaction = await queryInterface.sequelize.transaction();
     try {
-      await queryInterface.dropTable('images', { transaction });
+      await queryInterface.dropTable('tags', { transaction });
       await transaction.commit();
     } catch (err) {
       await transaction.rollback();

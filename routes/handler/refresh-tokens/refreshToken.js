@@ -1,7 +1,7 @@
-import jwt from 'jsonwebtoken';
-import RefreshToken from '../../../models/RefreshToken.js';
-import User from '../../../models/User.js';
-import Joi from 'joi';
+const jwt = require('jsonwebtoken');
+const RefreshToken = require('../../../models/RefreshToken.js');
+const User = require('../../../models/User.js');
+const Joi = require('joi');
 
 const refreshToken = async (req, res) => {
     // Skema validasi menggunakan Joi
@@ -56,4 +56,4 @@ const refreshToken = async (req, res) => {
     }
 };
 
-export default refreshToken;
+module.exports = refreshToken;

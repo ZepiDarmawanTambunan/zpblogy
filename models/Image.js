@@ -1,9 +1,10 @@
-// models/Image.js
-import { Sequelize, DataTypes, Model } from 'sequelize';
-import config from '../config/config.js';
-import Article from './Article.js';
+'use strict';
 
-const sequelize = new Sequelize(config.development); // Menggunakan konfigurasi development, bisa disesuaikan dengan lingkungan yang tepat
+const { Sequelize, DataTypes, Model } = require('sequelize');
+const config = require('../config/config');
+const Article = require('./Article');
+
+const sequelize = new Sequelize(config.development);
 
 class Image extends Model {}
 
@@ -15,16 +16,18 @@ Image.init({
     type: DataTypes.INTEGER
   },
   url: {
-    type: DataTypes.STRING
+    type: DataTypes.STRING,
+    allowNull: false,
   },
   articleId: {
     type: DataTypes.INTEGER,
+    allowNull: false,
     references: {
-      model: 'Article',
+      model: 'articles',
       key: 'id'
     },
     onUpdate: 'CASCADE',
-    onDelete: 'CASCADE'
+    onDelete: 'CASCADE',
   },
   createdAt: {
     allowNull: false,
@@ -46,4 +49,4 @@ Image.init({
 // Definisikan relasi antara Image dan Article
 Image.belongsTo(Article, { foreignKey: 'articleId' });
 
-export default Image;
+module.exports = Image;

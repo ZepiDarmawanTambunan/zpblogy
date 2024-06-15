@@ -1,9 +1,10 @@
-// models/User.js
-import { Sequelize, DataTypes, Model } from 'sequelize';
-import config from '../config/config.js';
-import Role from './Role.js';
+'use strict';
 
-const sequelize = new Sequelize(config.development); // Menggunakan konfigurasi development, bisa disesuaikan dengan lingkungan yang tepat
+const { Sequelize, DataTypes, Model } = require('sequelize');
+const config = require('../config/config');
+const Role = require('./Role');
+
+const sequelize = new Sequelize(config.development);
 
 class User extends Model {}
 
@@ -32,6 +33,12 @@ User.init({
     type: DataTypes.INTEGER,
     allowNull: false,
     defaultValue: 3,
+    references: {
+      model: 'roles',
+      key: 'id'
+    },
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
   },
   status: {
     type: DataTypes.TINYINT,
@@ -52,9 +59,9 @@ User.init({
   sequelize,
   modelName: 'User',
   tableName: 'users',
-  timestamps: false // Jika Anda ingin menggunakan field 'createdAt' dan 'updatedAt' yang dihasilkan secara otomatis oleh Sequelize, setel nilai ini menjadi true
+  timestamps: false
 });
 
 User.belongsTo(Role, { foreignKey: 'role_id' });
 
-export default User;
+module.exports = User;

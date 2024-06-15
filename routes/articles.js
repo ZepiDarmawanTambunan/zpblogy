@@ -1,5 +1,5 @@
-import express from 'express';
-import * as articlesHandler from './handler/articles/index.js';
+const express = require('express');
+const articlesHandler = require('./handler/articles/index.js');
 
 const router = express.Router();
 
@@ -9,4 +9,4 @@ router.post('/', articlesHandler.create);
 router.put('/:id', articlesHandler.update);
 router.delete('/:id', articlesHandler.destroy);
 
-export default router;
+module.exports = router;

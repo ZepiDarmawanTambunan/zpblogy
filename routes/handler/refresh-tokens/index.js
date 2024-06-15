@@ -1,5 +1,5 @@
-import refreshToken from './refreshToken.js';
+const refreshToken = require('./refreshToken.js');
 
-export { 
+module.exports = {
     refreshToken,
 };

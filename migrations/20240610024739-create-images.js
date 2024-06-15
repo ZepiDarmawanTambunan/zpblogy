@@ -1,30 +1,27 @@
 'use strict';
-/** @type {import('sequelize-cli').Migration} */
+
 module.exports = {
-  async up(queryInterface, Sequelize) {
+  up: async function (queryInterface, Sequelize) {
     const transaction = await queryInterface.sequelize.transaction();
     try {
-      await queryInterface.createTable('articles', {
+      await queryInterface.createTable('images', {
         id: {
           allowNull: false,
           autoIncrement: true,
           primaryKey: true,
           type: Sequelize.INTEGER
         },
-        title: {
+        url: {
           type: Sequelize.STRING
         },
-        content: {
-          type: Sequelize.TEXT
-        },
-        status: {
-          type: Sequelize.STRING
-        },
-        image: {
-          type: Sequelize.STRING
-        },
-        userId: {
-          type: Sequelize.INTEGER
+        articleId: {
+          type: Sequelize.INTEGER,
+          references: {
+            model: 'articles',
+            key: 'id'
+          },
+          onUpdate: 'CASCADE',
+          onDelete: 'CASCADE'
         },
         createdAt: {
           allowNull: false,
@@ -36,17 +33,17 @@ module.exports = {
           type: Sequelize.DATE,
           defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
         }
-      });
+      }, { transaction });
       await transaction.commit();
     } catch (error) {
       await transaction.rollback();
       throw error;
     }
   },
-  async down (queryInterface, Sequelize) {
+  down: async function (queryInterface, Sequelize) {
     const transaction = await queryInterface.sequelize.transaction();
     try {
-      await queryInterface.dropTable('articles', { transaction });
+      await queryInterface.dropTable('images', { transaction });
       await transaction.commit();
     } catch (err) {
       await transaction.rollback();

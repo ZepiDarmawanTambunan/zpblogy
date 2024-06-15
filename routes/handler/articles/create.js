@@ -1,12 +1,11 @@
-// routes/handler/articles/createArticle.js
-import Joi from 'joi';
-import Article from '../../../models/Article.js';
+const Joi = require('joi');
+const Article = require('../../../models/Article.js');
 
 const create = async (req, res) => {
     const schema = Joi.object({
         title: Joi.string().required(),
         content: Joi.string().required(),
-        status: Joi.string().valid('draft', 'published').required(),
+        status: Joi.string().required(),
         image: Joi.string().allow(null, '')
     });
 
@@ -31,4 +30,4 @@ const create = async (req, res) => {
     }
 };
 
-export default create;
+module.exports = create;

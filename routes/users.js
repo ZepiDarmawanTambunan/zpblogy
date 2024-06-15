@@ -1,7 +1,6 @@
-import express from 'express';
-import * as usersHandler from './handler/users/index.js';
-
+const express = require('express');
 const router = express.Router();
+const usersHandler = require('./handler/users/index.js');
 
 router.post('/register', usersHandler.register);
 router.post('/login', usersHandler.login);
@@ -10,4 +9,4 @@ router.put('/:id', usersHandler.update);
 router.get('/:id', usersHandler.getUser);
 router.get('/', usersHandler.getUsers);
 
-export default router;
+module.exports = router;

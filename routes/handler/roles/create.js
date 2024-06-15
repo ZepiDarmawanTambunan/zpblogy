@@ -1,5 +1,5 @@
-import Joi from 'joi';
-import Role from '../../../models/Role.js';
+const Joi = require('joi');
+const Role = require('../../../models/Role.js');
 
 const create = async (req, res) => {
     const schema = Joi.object({
@@ -22,4 +22,4 @@ const create = async (req, res) => {
     }
 };
 
-export default create;
+module.exports = create;

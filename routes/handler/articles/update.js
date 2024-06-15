@@ -1,5 +1,5 @@
-import Joi from 'joi';
-import Article from '../../../models/Article.js';
+const Joi = require('joi');
+const Article = require('../../../models/Article.js');
 
 const update = async (req, res) => {
     const { id } = req.params;
@@ -35,4 +35,4 @@ const update = async (req, res) => {
     }
 };
 
-export default update;
+module.exports = update;

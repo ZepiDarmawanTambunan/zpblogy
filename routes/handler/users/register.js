@@ -1,6 +1,6 @@
-import bcrypt from 'bcrypt';
-import Joi from 'joi';
-import User from '../../../models/User.js';
+const bcrypt = require('bcrypt');
+const Joi = require('joi');
+const User = require('../../../models/User.js');
 
 const register = async (req, res) => {
     // Skema validasi menggunakan Joi
@@ -45,4 +45,4 @@ const register = async (req, res) => {
     }
 };
 
-export default register;
+module.exports = register;

@@ -1,6 +1,6 @@
-import Joi from 'joi';
-import bcrypt from 'bcrypt';
-import User from '../../../models/User.js';
+const Joi = require('joi');
+const bcrypt = require('bcrypt');
+const User = require('../../../models/User.js');
 
 const updateUser = async (req, res) => {
     const { id } = req.params;
@@ -42,4 +42,4 @@ const updateUser = async (req, res) => {
     }
 };
 
-export default updateUser;
+module.exports = updateUser;

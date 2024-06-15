@@ -1,8 +1,8 @@
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
-import Joi from 'joi';
-import User from '../../../models/User.js';
-import RefreshToken from '../../../models/RefreshToken.js';
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const Joi = require('joi');
+const User = require('../../../models/User.js');
+const RefreshToken = require('../../../models/RefreshToken.js');
 
 const login = async (req, res) => {
     // Skema validasi menggunakan Joi
@@ -57,4 +57,4 @@ const login = async (req, res) => {
     }
 };
 
-export default login;
+module.exports = login;

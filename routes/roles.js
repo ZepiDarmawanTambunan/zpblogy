@@ -1,5 +1,5 @@
-import express from 'express';
-import * as rolesHandler from './handler/roles/index.js';
+const express = require('express');
+const rolesHandler = require('./handler/roles/index.js');
 
 const router = express.Router();
 
@@ -10,4 +10,4 @@ router.post('/', rolesHandler.create);
 router.put('/:id', rolesHandler.update);
 router.delete('/:id', rolesHandler.destroy);
 
-export default router;
+module.exports = router;

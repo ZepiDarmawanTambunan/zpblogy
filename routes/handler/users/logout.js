@@ -1,5 +1,5 @@
-import Joi from 'joi';
-import RefreshToken from '../../../models/RefreshToken.js';
+const Joi = require('joi');
+const RefreshToken = require('../../../models/RefreshToken.js');
 
 const logout = async (req, res) => {
     // Skema validasi menggunakan Joi
@@ -30,4 +30,4 @@ const logout = async (req, res) => {
     }
 };
 
-export default logout;
+module.exports = logout;

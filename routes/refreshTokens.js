@@ -1,8 +1,8 @@
-import express from 'express';
-import * as refreshToken from './handler/refresh-tokens/index.js';
+const express = require('express');
+const refreshToken = require('./handler/refresh-tokens/index.js');
 
 const router = express.Router();
 
 router.post('/refresh-token', refreshToken.refreshToken);
 
-export default router;
+module.exports = router;

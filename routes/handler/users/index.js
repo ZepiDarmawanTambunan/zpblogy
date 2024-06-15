@@ -1,11 +1,11 @@
-import register from './register.js';
-import getUser from './getUser.js';
-import login from './login.js';
-import update from './update.js';
-import getUsers from './getUsers.js';
-import logout from './logout.js';
+const register = require('./register.js');
+const getUser = require('./getUser.js');
+const login = require('./login.js');
+const update = require('./update.js');
+const getUsers = require('./getUsers.js');
+const logout = require('./logout.js');
 
-export { 
+module.exports = {
     register,
     getUser,
     login,

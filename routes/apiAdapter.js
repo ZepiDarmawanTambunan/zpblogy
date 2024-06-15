@@ -1,4 +1,4 @@
-import axios from 'axios';
+const axios = require('axios');
 
 const { TIMEOUT } = process.env;
 
@@ -9,4 +9,4 @@ const createAxiosInstance = (baseUrl) => {
     });
 };
 
-export default createAxiosInstance;
+module.exports = createAxiosInstance;

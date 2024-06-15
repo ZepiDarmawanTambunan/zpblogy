@@ -1,8 +1,7 @@
 'use strict';
 
-/** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  up: async function (queryInterface, Sequelize) {
     const transaction = await queryInterface.sequelize.transaction();
     try {
       await queryInterface.createTable('roles', {
@@ -32,7 +31,7 @@ module.exports = {
           allowNull: false,
           defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
         },
-      }, {transaction});
+      }, { transaction });
 
       await transaction.commit();
     } catch (error) {
@@ -41,7 +40,7 @@ module.exports = {
     }
   },
 
-  async down (queryInterface, Sequelize) {
+  down: async function (queryInterface, Sequelize) {
     const transaction = await queryInterface.sequelize.transaction();
     try {
       await queryInterface.dropTable('roles', { transaction });

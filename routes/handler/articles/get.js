@@ -1,5 +1,5 @@
-import Article from '../../../models/Article.js';
-import User from '../../../models/User.js';
+const Article = require('../../../models/Article.js');
+const User = require('../../../models/User.js');
 
 const get = async (req, res) => {
     const { id } = req.params;
@@ -24,4 +24,4 @@ const get = async (req, res) => {
     }
 };
 
-export default get;
+module.exports = get;

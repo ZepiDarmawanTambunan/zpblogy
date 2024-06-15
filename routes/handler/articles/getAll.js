@@ -1,6 +1,6 @@
-import Article from '../../../models/Article.js';
-import User from '../../../models/User.js';
-import { Op } from 'sequelize';
+const Article = require('../../../models/Article.js');
+const User = require('../../../models/User.js');
+const { Op } = require('sequelize');
 
 const getAll = async (req, res) => {
     const { page = 1, limit = 10, title, status } = req.query;
@@ -44,4 +44,4 @@ const getAll = async (req, res) => {
     }
 };
 
-export default getAll;
+module.exports = getAll;

@@ -1,22 +1,22 @@
 // PACKAGE
-import dotenv from 'dotenv';
-import express from 'express';
-import path from 'path'
-import { fileURLToPath } from 'url';
-import cookieParser from 'cookie-parser';
-import logger from 'morgan';
+const dotenv = require('dotenv');
+const express = require('express');
+const path = require('path');
+const { fileURLToPath } = require('url');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 
 // ROUTES
-import testingRouter from './routes/testing.js';
-import rolesRouter from './routes/roles.js';
-import userRouter from './routes/users.js';
-import refreshTokenRouter from './routes/refreshTokens.js';
-import articleRouter from './routes/articles.js';
+const testingRouter = require('./routes/testing');
+const rolesRouter = require('./routes/roles');
+const userRouter = require('./routes/users');
+const refreshTokenRouter = require('./routes/refreshTokens');
+const articleRouter = require('./routes/articles');
 
 dotenv.config();
 const app = express();
 app.use(logger('dev'));
-app.use(express.json({limit: '10mb'}));
+app.use(express.json({ limit: '10mb' }));
 app.use(cookieParser());
 
 const __filename = fileURLToPath(import.meta.url);
@@ -25,8 +25,8 @@ const __dirname = path.dirname(__filename);
 // MIDDLEWARES
 // izinkan agar react bisa akses http://localhost:5000/gambar.png diupload /public
 app.use(express.static(path.join(__dirname, 'public')));
-import verifyToken from './middlewares/verifyToken.js';
-import can from './middlewares/permission.js';
+const verifyToken = require('./middlewares/verifyToken');
+const can = require('./middlewares/permission');
 
 // ROUTES & MIDDLEWARE
 app.use('/testing', testingRouter);
@@ -48,3 +48,5 @@ app.use((err, req, res, next) => {
 app.listen(3000, () => {
     console.log('server is running');
 });
+
+module.exports = app;

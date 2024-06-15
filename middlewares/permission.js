@@ -14,4 +14,4 @@ const can = (...roles) => {
     };
 };
 
-export default can;
+module.exports = can;

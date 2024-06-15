@@ -1,5 +1,5 @@
-import Role from '../../../models/Role.js';
-import { Op } from 'sequelize';
+const Role = require('../../../models/Role.js');
+const { Op } = require('sequelize');
 
 const paginate = async (req, res) => {
     const { page = 1, limit = 10, status, name } = req.query;
@@ -42,4 +42,4 @@ const paginate = async (req, res) => {
     }
 };
 
-export default paginate;
+module.exports = paginate;

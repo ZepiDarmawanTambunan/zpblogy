@@ -1,5 +1,5 @@
-import User from '../../../models/User.js';
-import Role from '../../../models/Role.js'
+const User = require('../../../models/User.js');
+const Role = require('../../../models/Role.js');
 
 const getUser = async (req, res) => {
     const { id } = req.params;
@@ -25,4 +25,4 @@ const getUser = async (req, res) => {
     }
 };
 
-export default getUser;
+module.exports = getUser;

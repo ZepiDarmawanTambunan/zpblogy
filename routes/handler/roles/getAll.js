@@ -1,5 +1,5 @@
-import Role from '../../../models/Role.js';
-import { Op } from 'sequelize';
+const Role = require('../../../models/Role.js');
+const { Op } = require('sequelize');
 
 const getAll = async (req, res) => {
     let { status, name } = req.query;
@@ -35,4 +35,4 @@ const getAll = async (req, res) => {
     }
 };
 
-export default getAll;
+module.exports = getAll;

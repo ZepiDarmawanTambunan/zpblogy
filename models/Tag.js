@@ -5,37 +5,24 @@ const config = require('../config/config');
 
 const sequelize = new Sequelize(config.development);
 
-class Article extends Model {}
+class Tag extends Model {}
 
-Article.init({
+Tag.init({
   id: {
     allowNull: false,
     autoIncrement: true,
     primaryKey: true,
     type: DataTypes.INTEGER
   },
-  title: {
+  name: {
     type: DataTypes.STRING,
-    allowNull: false
-  },
-  content: {
-    type: DataTypes.TEXT,
-    allowNull: false
+    allowNull: false,
+    unique: true
   },
   status: {
     type: DataTypes.TINYINT,
     allowNull: false,
     defaultValue: 1
-  },
-  userId: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      model: 'users', // Name of the table in the database
-      key: 'id'
-    },
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE'
   },
   createdAt: {
     allowNull: false,
@@ -49,9 +36,9 @@ Article.init({
   }
 }, {
   sequelize,
-  modelName: 'Article',
-  tableName: 'articles',
-  timestamps: false // If you want to use Sequelize's automatic createdAt and updatedAt fields, set this to true
+  modelName: 'Tag',
+  tableName: 'tags',
+  timestamps: false
 });
 
-module.exports = Article;
+module.exports = Tag;

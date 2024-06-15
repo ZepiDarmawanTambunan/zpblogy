@@ -1,8 +1,7 @@
 'use strict';
 
-/** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  up: async function (queryInterface, Sequelize) {
     const transaction = await queryInterface.sequelize.transaction();
     try {
       await queryInterface.createTable('refresh_tokens', {
@@ -19,6 +18,12 @@ module.exports = {
         user_id: {
           type: Sequelize.INTEGER,
           allowNull: false,
+          references: {
+            model: 'users',
+            key: 'id'
+          },
+          onUpdate: 'CASCADE',
+          onDelete: 'CASCADE',
         },
         created_at: {
           type: Sequelize.DATE,
@@ -30,18 +35,18 @@ module.exports = {
           allowNull: false,
           defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
         },
-      }, {transaction});
+      }, { transaction });
       await transaction.commit();
     } catch (error) {
       await transaction.rollback();
-      throw err;
+      throw error;
     }
   },
 
-  async down (queryInterface, Sequelize) {
+  down: async function (queryInterface, Sequelize) {
     const transaction = await queryInterface.sequelize.transaction();
     try {
-      await queryInterface.dropTable('refresh_token', { transaction });
+      await queryInterface.dropTable('refresh_tokens', { transaction });
       await transaction.commit();
     } catch (err) {
       await transaction.rollback();

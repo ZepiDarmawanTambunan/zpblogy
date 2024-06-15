@@ -1,8 +1,7 @@
 'use strict';
 
-/** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  up: async function (queryInterface, Sequelize) {
     const transaction = await queryInterface.sequelize.transaction();
     try {
       await queryInterface.createTable('users', {
@@ -30,6 +29,12 @@ module.exports = {
           type: Sequelize.INTEGER,
           allowNull: false,
           defaultValue: 1,
+          references: {
+            model: 'roles',
+            key: 'id'
+          },
+          onUpdate: 'CASCADE',
+          onDelete: 'CASCADE',
         },
         status: {
           type: Sequelize.TINYINT,
@@ -46,7 +51,7 @@ module.exports = {
           allowNull: false,
           defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
         },
-      }, {transaction});
+      }, { transaction });
 
       await transaction.commit();
     } catch (error) {
@@ -55,7 +60,7 @@ module.exports = {
     }
   },
 
-  async down (queryInterface, Sequelize) {
+  down: async function (queryInterface, Sequelize) {
     const transaction = await queryInterface.sequelize.transaction();
     try {
       await queryInterface.dropTable('users', { transaction });

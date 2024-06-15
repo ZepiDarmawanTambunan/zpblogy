@@ -1,15 +1,15 @@
-import create from './create.js';
-import getAll from './getAll.js';
-import get from './get.js';
-import paginate from './paginate.js';
-import update from './update.js';
-import destroy from './destroy.js';
+const create = require('./create.js');
+const getAll = require('./getAll.js');
+const get = require('./get.js');
+const paginate = require('./paginate.js');
+const update = require('./update.js');
+const destroy = require('./destroy.js');
 
-export { 
-    create, 
-    getAll, 
-    paginate, 
-    get, 
-    update, 
-    destroy 
+module.exports = {
+    create,
+    getAll,
+    get,
+    paginate,
+    update,
+    destroy
 };

@@ -1,4 +1,4 @@
-import Article from '../../../models/Article.js';
+const Article = require('../../../models/Article.js');
 
 const destroy = async (req, res) => {
     const { id } = req.params;
@@ -20,4 +20,4 @@ const destroy = async (req, res) => {
     }
 };
 
-export default destroy;
+module.exports = destroy;

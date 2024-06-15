@@ -1,6 +1,6 @@
-import User from '../../../models/User.js';
-import Role from '../../../models/Role.js';
-import { Op } from 'sequelize';
+const User = require('../../../models/User.js');
+const Role = require('../../../models/Role.js');
+const { Op } = require('sequelize');
 
 const getUsers = async (req, res) => {
     const { page = 1, limit = 10, status, username } = req.query;
@@ -44,4 +44,4 @@ const getUsers = async (req, res) => {
     }
 };
 
-export default getUsers;
+module.exports = getUsers;

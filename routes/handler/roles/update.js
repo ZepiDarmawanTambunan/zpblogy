@@ -1,5 +1,5 @@
-import Joi from 'joi';
-import Role from '../../../models/Role.js';
+const Joi = require('joi');
+const Role = require('../../../models/Role.js');
 
 // Fungsi untuk mengupdate data role
 const update = async (req, res) => {
@@ -35,4 +35,4 @@ const update = async (req, res) => {
     }
 };
 
-export default update;
+module.exports = update;

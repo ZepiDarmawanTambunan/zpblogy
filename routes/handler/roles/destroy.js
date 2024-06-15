@@ -1,4 +1,4 @@
-import Role from '../../../models/Role.js';
+const Role = require('../../../models/Role.js');
 
 const destroy = async (req, res) => {
     const roleId = req.params.id;
@@ -21,4 +21,4 @@ const destroy = async (req, res) => {
     }
 };
 
-export default destroy;
+module.exports = destroy;

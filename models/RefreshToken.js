@@ -1,9 +1,10 @@
-// models/RefreshToken.js
-import { Sequelize, DataTypes, Model } from 'sequelize';
-import config from '../config/config.js';
-import User from './User.js';
+'use strict';
 
-const sequelize = new Sequelize(config.development); // Menggunakan konfigurasi development, bisa disesuaikan dengan lingkungan yang tepat
+const { Sequelize, DataTypes, Model } = require('sequelize');
+const config = require('../config/config');
+const User = require('./User');
+
+const sequelize = new Sequelize(config.development);
 
 class RefreshToken extends Model {}
 
@@ -21,6 +22,12 @@ RefreshToken.init({
   user_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    references: {
+      model: 'users',
+      key: 'id'
+    },
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
   },
   created_at: {
     type: DataTypes.DATE,
@@ -42,4 +49,4 @@ RefreshToken.init({
 // Definisikan relasi antara RefreshToken dan User
 RefreshToken.belongsTo(User, { foreignKey: 'user_id' });
 
-export default RefreshToken;
+module.exports = RefreshToken;

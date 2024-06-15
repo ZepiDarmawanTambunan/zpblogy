@@ -1,4 +1,4 @@
-import Role from '../../../models/Role.js';
+const Role = require('../../../models/Role.js');
 
 const getById = async (req, res) => {
     const roleId = req.params.id;
@@ -17,4 +17,4 @@ const getById = async (req, res) => {
     }
 };
 
-export default getById;
+module.exports = getById;
