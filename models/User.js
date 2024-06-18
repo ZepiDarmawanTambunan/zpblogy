@@ -29,7 +29,7 @@ User.init({
     type: DataTypes.STRING,
     allowNull: false,
   },
-  role_id: {
+  roleId: {
     type: DataTypes.INTEGER,
     allowNull: false,
     defaultValue: 3,
@@ -45,12 +45,12 @@ User.init({
     allowNull: false,
     defaultValue: 1,
   },
-  created_at: {
+  createdAt: {
     type: DataTypes.DATE,
     allowNull: false,
     defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
   },
-  updated_at: {
+  updatedAt: {
     type: DataTypes.DATE,
     allowNull: false,
     defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
@@ -62,6 +62,6 @@ User.init({
   timestamps: false
 });
 
-User.belongsTo(Role, { foreignKey: 'role_id' });
+User.belongsTo(Role, { foreignKey: 'roleId' });
 
 module.exports = User;

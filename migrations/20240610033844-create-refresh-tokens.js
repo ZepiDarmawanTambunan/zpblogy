@@ -15,7 +15,7 @@ module.exports = {
           type: Sequelize.TEXT,
           allowNull: false,
         },
-        user_id: {
+        userId: {
           type: Sequelize.INTEGER,
           allowNull: false,
           references: {
@@ -25,12 +25,12 @@ module.exports = {
           onUpdate: 'CASCADE',
           onDelete: 'CASCADE',
         },
-        created_at: {
+        createdAt: {
           type: Sequelize.DATE,
           allowNull: false,
           defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
         },
-        updated_at: {
+        updatedAt: {
           type: Sequelize.DATE,
           allowNull: false,
           defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),

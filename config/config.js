@@ -1,5 +1,4 @@
-import dotenv from 'dotenv';
-dotenv.config();
+require('dotenv').config();
 
 const {
   DB_USERNAME,
@@ -32,4 +31,4 @@ const config = {
   }
 };
 
-export default config;
+module.exports = config;

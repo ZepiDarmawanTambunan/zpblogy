@@ -1,5 +1,6 @@
 const Article = require('../../../models/Article.js');
 const User = require('../../../models/User.js');
+const Tag = require('../../../models/Tag.js');
 
 const get = async (req, res) => {
     const { id } = req.params;
@@ -7,10 +8,16 @@ const get = async (req, res) => {
     try {
         const article = await Article.findOne({
             where: { id },
-            include: {
-                model: User,
-                attributes: ['username', 'email']
-            }
+            include: [
+                {
+                    model: User,
+                    attributes: ['username', 'email']
+                },
+                {
+                    model: Tag,
+                    attributes: ['id', 'name', 'status'] // Sertakan atribut yang diinginkan dari Tag
+                }
+            ]
         });
 
         if (!article) {

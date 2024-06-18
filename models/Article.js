@@ -2,6 +2,8 @@
 
 const { Sequelize, DataTypes, Model } = require('sequelize');
 const config = require('../config/config');
+const ArticleTag = require('./ArticleTag');
+const Tag = require('./Tag');
 
 const sequelize = new Sequelize(config.development);
 
@@ -51,7 +53,10 @@ Article.init({
   sequelize,
   modelName: 'Article',
   tableName: 'articles',
-  timestamps: false // If you want to use Sequelize's automatic createdAt and updatedAt fields, set this to true
+  timestamps: false
 });
+
+Article.belongsToMany(Tag, { through: ArticleTag, foreignKey: 'articleId' });
+Tag.belongsToMany(Article, { through: ArticleTag, foreignKey: 'tagId' });
 
 module.exports = Article;

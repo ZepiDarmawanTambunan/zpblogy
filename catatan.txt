@@ -3,3 +3,5 @@
 - npx sequelize-cli init
 - npx sequelize-cli migration:generate --name create-refresh-tokens
 - npx sequelize-cli db:migrate
+- npx sequelize-cli seed:generate --name role-seeder
+- npx sequelize-cli db:seed:all

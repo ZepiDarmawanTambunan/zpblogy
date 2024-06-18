@@ -10,7 +10,7 @@ const updateUser = async (req, res) => {
         email: Joi.string().email(),
         username: Joi.string(),
         password: Joi.string().min(6),
-        role_id: Joi.number().integer(),
+        roleId: Joi.number().integer(),
         status: Joi.number().integer().min(0).max(1)
     });
 
@@ -25,6 +25,13 @@ const updateUser = async (req, res) => {
         const user = await User.findByPk(id);
         if (!user) {
             return res.status(404).json({ status: 'error', message: 'User not found' });
+        }
+
+        // master dan user tersebut yang dapat melakukan update
+        if (req.user.role !== 'master') {
+            if(user.id != req.user.userId){
+                return res.status(403).json({ status: 'error', message: 'You don\'t have permission' });
+            }
         }
 
         // Hash password jika ada dalam request body

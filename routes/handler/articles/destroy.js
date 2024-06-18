@@ -1,4 +1,5 @@
 const Article = require('../../../models/Article.js');
+const ArticleTag = require('../../../models/ArticleTag.js');
 
 const destroy = async (req, res) => {
     const { id } = req.params;
@@ -9,6 +10,11 @@ const destroy = async (req, res) => {
         if (!article) {
             return res.status(404).json({ status: 'error', message: 'Article not found' });
         }
+
+        // Hapus asosiasi artikel dengan tag dari tabel perantara
+        await ArticleTag.destroy({
+            where: { articleId: id }
+        });
 
         // Hapus artikel
         await article.destroy();

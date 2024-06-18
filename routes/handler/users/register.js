@@ -17,10 +17,18 @@ const register = async (req, res) => {
             return res.status(400).json({ status: 'error', message: error.details[0].message });
         }
 
-        // Cek apakah email sudah terdaftar
-        const existingUser = await User.findOne({ where: { email: req.body.email } });
+        // Cek apakah email atau username sudah terdaftar
+        const existingUser = await User.findOne({
+            where: {
+                [Op.or]: [
+                    { email: req.body.email },
+                    { username: req.body.username }
+                ]
+            }
+        });
+
         if (existingUser) {
-            return res.status(409).json({ status: 'error', message: 'Email already exists' });
+            return res.status(409).json({ status: 'error', message: 'Email or username already exists' });
         }
 
         // Hash password
@@ -31,8 +39,6 @@ const register = async (req, res) => {
             username: req.body.username,
             email: req.body.email,
             password: hashedPassword,
-            role_id: 3, // Default role_id sesuai dengan model User
-            status: 1, // Default status (aktif)
         };
 
         // Buat user baru

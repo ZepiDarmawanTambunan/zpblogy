@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const Joi = require('joi');
 const User = require('../../../models/User.js');
 const RefreshToken = require('../../../models/RefreshToken.js');
+const Role = require('../../../models/Role.js');
 
 const login = async (req, res) => {
     // Skema validasi menggunakan Joi
@@ -19,7 +20,13 @@ const login = async (req, res) => {
         }
 
         // Cari user berdasarkan email
-        const user = await User.findOne({ where: { email: req.body.email } });
+        const user = await User.findOne({
+            where: { email: req.body.email },
+            include: {
+                model: Role,
+                attributes: ['name']
+            }
+        });
         if (!user) {
             return res.status(404).json({ status: 'error', message: 'User not found' });
         }
@@ -30,22 +37,20 @@ const login = async (req, res) => {
             return res.status(401).json({ status: 'error', message: 'Invalid credentials' });
         }
 
-        // Generate JWT token
         const token = jwt.sign(
-            { userId: user.id, email: user.email },
+            { userId: user.id, email: user.email, role: user.Role.name },
             process.env.JWT_SECRET,
             { expiresIn: process.env.JWT_ACCESS_TOKEN_EXPIRED }
         );
-
-        // Generate refresh token
+        
         const refreshToken = jwt.sign(
-            { userId: user.id, email: user.email },
+            { userId: user.id, email: user.email, role: user.Role.name },
             process.env.JWT_SECRET_REFRESH_TOKEN,
             { expiresIn: process.env.JWT_REFRESH_TOKEN_EXPIRED }
         );
 
         // Simpan refresh token di database
-        await RefreshToken.create({ token: refreshToken, user_id: user.id });
+        await RefreshToken.create({ token: refreshToken, userId: user.id });
 
         return res.json({
             status: 'success',

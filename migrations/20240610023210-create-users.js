@@ -25,28 +25,22 @@ module.exports = {
           type: Sequelize.STRING,
           allowNull: false,
         },
-        role_id: {
+        roleId: {
           type: Sequelize.INTEGER,
           allowNull: false,
-          defaultValue: 1,
-          references: {
-            model: 'roles',
-            key: 'id'
-          },
-          onUpdate: 'CASCADE',
-          onDelete: 'CASCADE',
+          defaultValue: 3,
         },
         status: {
           type: Sequelize.TINYINT,
           allowNull: false,
           defaultValue: 1,
         },
-        created_at: {
+        createdAt: {
           type: Sequelize.DataTypes.DATE,
           allowNull: false,
           defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
         },
-        updated_at: {
+        updatedAt: {
           type: Sequelize.DataTypes.DATE,
           allowNull: false,
           defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),

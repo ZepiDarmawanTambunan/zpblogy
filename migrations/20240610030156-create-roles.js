@@ -21,12 +21,12 @@ module.exports = {
           allowNull: false,
           defaultValue: 1,
         },
-        created_at: {
+        createdAt: {
           type: Sequelize.DataTypes.DATE,
           allowNull: false,
           defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
         },
-        updated_at: {
+        updatedAt: {
           type: Sequelize.DataTypes.DATE,
           allowNull: false,
           defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),

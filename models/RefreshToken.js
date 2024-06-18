@@ -19,7 +19,7 @@ RefreshToken.init({
     type: DataTypes.TEXT,
     allowNull: false,
   },
-  user_id: {
+  userId: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
@@ -29,12 +29,12 @@ RefreshToken.init({
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
   },
-  created_at: {
+  createdAt: {
     type: DataTypes.DATE,
     allowNull: false,
     defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
   },
-  updated_at: {
+  updatedAt: {
     type: DataTypes.DATE,
     allowNull: false,
     defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
@@ -47,6 +47,6 @@ RefreshToken.init({
 });
 
 // Definisikan relasi antara RefreshToken dan User
-RefreshToken.belongsTo(User, { foreignKey: 'user_id' });
+RefreshToken.belongsTo(User, { foreignKey: 'userId' });
 
 module.exports = RefreshToken;
