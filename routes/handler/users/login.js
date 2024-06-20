@@ -1,9 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Joi = require('joi');
-const User = require('../../../models/User.js');
-const RefreshToken = require('../../../models/RefreshToken.js');
-const Role = require('../../../models/Role.js');
+const { User, Role, RefreshToken } = require('../../../models');
 
 const login = async (req, res) => {
     // Skema validasi menggunakan Joi
@@ -36,6 +34,9 @@ const login = async (req, res) => {
         if (!passwordMatch) {
             return res.status(401).json({ status: 'error', message: 'Invalid credentials' });
         }
+
+        // Hapus semua refresh token sebelumnya yang terkait dengan user ini
+        await RefreshToken.destroy({ where: { userId: user.id } });
 
         const token = jwt.sign(
             { userId: user.id, email: user.email, role: user.Role.name },

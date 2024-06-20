@@ -1,4 +1,4 @@
-const Role = require('../../../models/Role.js');
+const { Role } = require('../../../models');
 
 const destroy = async (req, res) => {
     const roleId = req.params.id;

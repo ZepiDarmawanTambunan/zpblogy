@@ -1,44 +1,47 @@
 'use strict';
 
 const { Sequelize, DataTypes, Model } = require('sequelize');
-const config = require('../config/config');
 
-const sequelize = new Sequelize(config.development);
+module.exports = (sequelize, DataTypes) => {
+  class Role extends Model {
+    static associate(models) {
+      // Define associations here
+    }
+  }
 
-class Role extends Model {}
+  Role.init({
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+      allowNull: false
+    },
+    name: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false,
+    },
+    status: {
+      type: DataTypes.TINYINT,
+      allowNull: false,
+      defaultValue: 1,
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+    },
+  }, {
+    sequelize,
+    modelName: 'Role',
+    tableName: 'roles',
+    timestamps: false // Set to true if you want Sequelize to automatically manage createdAt and updatedAt
+  });
 
-Role.init({
-  id: {
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
-    primaryKey: true,
-    allowNull: false
-  },
-  name: {
-    type: DataTypes.STRING,
-    unique: true,
-    allowNull: false,
-  },
-  status: {
-    type: DataTypes.TINYINT,
-    allowNull: false,
-    defaultValue: 1,
-  },
-  createdAt: {
-    type: DataTypes.DATE,
-    allowNull: false,
-    defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
-  },
-  updatedAt: {
-    type: DataTypes.DATE,
-    allowNull: false,
-    defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
-  },
-}, {
-  sequelize,
-  modelName: 'Role',
-  tableName: 'roles',
-  timestamps: false // Jika Anda ingin menggunakan field 'createdAt' dan 'updatedAt' yang dihasilkan secara otomatis oleh Sequelize, setel nilai ini menjadi true
-});
-
-module.exports = Role;
+  return Role;
+};

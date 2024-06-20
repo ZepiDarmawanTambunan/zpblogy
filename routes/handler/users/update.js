@@ -1,6 +1,6 @@
 const Joi = require('joi');
 const bcrypt = require('bcrypt');
-const User = require('../../../models/User.js');
+const { User } = require('../../../models');
 
 const updateUser = async (req, res) => {
     const { id } = req.params;

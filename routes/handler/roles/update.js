@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const Role = require('../../../models/Role.js');
+const { Role } = require('../../../models');
 
 // Fungsi untuk mengupdate data role
 const update = async (req, res) => {

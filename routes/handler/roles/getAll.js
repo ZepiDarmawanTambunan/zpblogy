@@ -1,5 +1,4 @@
-const Role = require('../../../models/Role.js');
-const { Op } = require('sequelize');
+const { Role, Op } = require('../../../models');
 
 const getAll = async (req, res) => {
     let { status, name } = req.query;
@@ -22,8 +21,6 @@ const getAll = async (req, res) => {
             if (name) {
                 whereConditions.name = { [Op.like]: `%${name}%` };
             }
-
-            console.log(whereConditions);
 
             roles = await Role.findAll({ where: whereConditions });
         }

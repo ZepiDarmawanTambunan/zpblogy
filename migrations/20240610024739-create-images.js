@@ -14,14 +14,13 @@ module.exports = {
         url: {
           type: Sequelize.STRING
         },
-        articleId: {
+        imageableType: {
+          type: Sequelize.STRING,
+          allowNull: false
+        },
+        imageableId: {
           type: Sequelize.INTEGER,
-          references: {
-            model: 'articles',
-            key: 'id'
-          },
-          onUpdate: 'CASCADE',
-          onDelete: 'CASCADE'
+          allowNull: false
         },
         createdAt: {
           allowNull: false,
@@ -40,6 +39,7 @@ module.exports = {
       throw error;
     }
   },
+
   down: async function (queryInterface, Sequelize) {
     const transaction = await queryInterface.sequelize.transaction();
     try {

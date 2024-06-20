@@ -1,7 +1,4 @@
-const Article = require('../../../models/Article.js');
-const User = require('../../../models/User.js');
-const Tag = require('../../../models/Tag.js');
-const { Op } = require('sequelize');
+const { Article, User, Tag, Image, Op } = require('../../../models');
 
 const getAll = async (req, res) => {
     const { page = 1, limit = 10, title, status } = req.query;
@@ -24,11 +21,15 @@ const getAll = async (req, res) => {
             include: [
                 {
                     model: User,
-                    attributes: ['username', 'email'] // Sertakan atribut yang diinginkan dari tabel User
+                    attributes: ['username', 'email']
                 },
                 {
                     model: Tag,
-                    attributes: ['id', 'name', 'status'] // Sertakan atribut yang diinginkan dari tabel Tag
+                    attributes: ['id', 'name', 'status']
+                },
+                {
+                    model: Image,
+                    attributes: ['url']
                 }
             ],
             limit: parseInt(limit),

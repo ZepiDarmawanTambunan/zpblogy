@@ -1,6 +1,4 @@
-const Article = require('../../../models/Article.js');
-const User = require('../../../models/User.js');
-const Tag = require('../../../models/Tag.js');
+const { Article, User, Tag, Image } = require('../../../models');
 
 const get = async (req, res) => {
     const { id } = req.params;
@@ -15,7 +13,11 @@ const get = async (req, res) => {
                 },
                 {
                     model: Tag,
-                    attributes: ['id', 'name', 'status'] // Sertakan atribut yang diinginkan dari Tag
+                    attributes: ['id', 'name', 'status']
+                },
+                {
+                    model: Image,
+                    attributes: ['url']
                 }
             ]
         });

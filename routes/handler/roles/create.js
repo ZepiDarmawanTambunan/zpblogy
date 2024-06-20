@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const Role = require('../../../models/Role.js');
+const { Role } = require('../../../models');
 
 const create = async (req, res) => {
     const schema = Joi.object({

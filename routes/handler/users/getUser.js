@@ -1,5 +1,4 @@
-const User = require('../../../models/User.js');
-const Role = require('../../../models/Role.js');
+const { User, Role } = require('../../../models');
 
 const getUser = async (req, res) => {
     const { id } = req.params;
@@ -10,7 +9,7 @@ const getUser = async (req, res) => {
             where: { id },
             include: {
                 model: Role,
-                attributes: ['name'] // Sertakan atribut name dari tabel Role
+                attributes: ['name']
             }
         });
 

@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const RefreshToken = require('../../../models/RefreshToken.js');
+const { RefreshToken, User } = require('../../../models');
 
 const logout = async (req, res) => {
     // Skema validasi menggunakan Joi
@@ -14,14 +14,23 @@ const logout = async (req, res) => {
             return res.status(400).json({ status: 'error', message: error.details[0].message });
         }
 
+        // Cari user berdasarkan ID
+        const user = await User.findByPk(req.user.userId);
+        if (!user) {
+            return res.status(404).json({ status: 'error', message: 'User not found' });
+        }
+
         const { refreshToken } = req.body;
 
-        // Cari dan hapus refresh token dari database
-        const deletedCount = await RefreshToken.destroy({ where: { token: refreshToken } });
+        // Cari refresh token berdasarkan user ID dan token
+        const tokenInstance = await RefreshToken.findOne({ where: { token: refreshToken, userId: user.id } });
 
-        if (deletedCount === 0) {
-            return res.status(404).json({ status: 'error', message: 'Refresh token not found' });
+        if (!tokenInstance) {
+            return res.status(404).json({ status: 'error', message: 'Refresh token not found or does not belong to the user' });
         }
+
+        // Hapus refresh token dari database
+        await tokenInstance.destroy();
 
         return res.status(200).json({ status: 'success', message: 'Logged out successfully' });
     } catch (error) {

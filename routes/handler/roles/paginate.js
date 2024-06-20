@@ -1,5 +1,4 @@
-const Role = require('../../../models/Role.js');
-const { Op } = require('sequelize');
+const { Role, Op } = require('../../../models');
 
 const paginate = async (req, res) => {
     const { page = 1, limit = 10, status, name } = req.query;

@@ -1,52 +1,51 @@
 'use strict';
 
 const { Sequelize, DataTypes, Model } = require('sequelize');
-const config = require('../config/config');
-const User = require('./User');
 
-const sequelize = new Sequelize(config.development);
+module.exports = (sequelize, DataTypes) => {
+  class RefreshToken extends Model {
+    static associate(models) {
+      this.belongsTo(models.User, { foreignKey: 'userId' });
+    }
+  }
 
-class RefreshToken extends Model {}
-
-RefreshToken.init({
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
-    allowNull: false,
-  },
-  token: {
-    type: DataTypes.TEXT,
-    allowNull: false,
-  },
-  userId: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      model: 'users',
-      key: 'id'
+  RefreshToken.init({
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+      allowNull: false
     },
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE',
-  },
-  createdAt: {
-    type: DataTypes.DATE,
-    allowNull: false,
-    defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
-  },
-  updatedAt: {
-    type: DataTypes.DATE,
-    allowNull: false,
-    defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
-  },
-}, {
-  sequelize,
-  modelName: 'RefreshToken',
-  tableName: 'refresh_tokens',
-  timestamps: false // Jika Anda ingin menggunakan field 'createdAt' dan 'updatedAt' yang dihasilkan secara otomatis oleh Sequelize, setel nilai ini menjadi true
-});
+    token: {
+      type: DataTypes.TEXT,
+      allowNull: false
+    },
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'users',
+        key: 'id'
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE'
+    },
+    createdAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+    },
+    updatedAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+    }
+  }, {
+    sequelize,
+    modelName: 'RefreshToken',
+    tableName: 'refresh_tokens',
+    timestamps: false
+  });
 
-// Definisikan relasi antara RefreshToken dan User
-RefreshToken.belongsTo(User, { foreignKey: 'userId' });
-
-module.exports = RefreshToken;
+  return RefreshToken;
+};

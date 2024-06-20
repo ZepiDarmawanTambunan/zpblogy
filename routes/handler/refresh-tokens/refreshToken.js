@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken');
-const RefreshToken = require('../../../models/RefreshToken.js');
-const User = require('../../../models/User.js');
+const { User, RefreshToken } = require('../../../models');
 const Joi = require('joi');
 
 const refreshToken = async (req, res) => {
