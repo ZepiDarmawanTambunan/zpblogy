@@ -14,6 +14,20 @@ module.exports = (sequelize, DataTypes) => {
           imageableType: 'article'
         }
       });
+      this.hasMany(models.Rating, {
+        foreignKey: 'ratingableId',
+        constraints: false,
+        scope: {
+          ratingableType: 'article'
+        }
+      });
+      this.hasMany(models.Comment, {
+        foreignKey: 'commentableId',
+        constraints: false,
+        scope: {
+          commentableType: 'article'
+        }
+      });
     }
   }
 
