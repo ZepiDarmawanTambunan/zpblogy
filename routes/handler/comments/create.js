@@ -3,7 +3,7 @@ const { Comment } = require('../../../models');
 
 const create = async (req, res) => {
     const schema = Joi.object({
-        content: Joi.string().required(),
+        comment: Joi.string().required(),
         clientId: Joi.string().allow(null),
         userId: Joi.number().integer().allow(null),
         commentableId: Joi.number().integer().required(),
@@ -26,4 +26,4 @@ const create = async (req, res) => {
     }
 };
 
-module.exports = { create };
+module.exports = create ;

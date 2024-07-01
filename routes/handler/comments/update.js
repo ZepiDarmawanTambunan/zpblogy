@@ -3,7 +3,7 @@ const { Comment } = require('../../../models');
 
 const update = async (req, res) => {
     const schema = Joi.object({
-        content: Joi.string(),
+        comment: Joi.string(),
         clientId: Joi.string().allow(null),
         userId: Joi.number().integer().allow(null),
         commentableId: Joi.number().integer(),
@@ -31,4 +31,4 @@ const update = async (req, res) => {
     }
 };
 
-module.exports = { update };
+module.exports = update;

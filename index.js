@@ -11,6 +11,8 @@ const rolesRouter = require('./routes/roles');
 const userRouter = require('./routes/users');
 const refreshTokenRouter = require('./routes/refreshTokens');
 const articleRouter = require('./routes/articles');
+const ratingRouter = require('./routes/ratings');
+const commentRouter = require('./routes/comments');
 
 const app = express();
 app.use(express.json({ limit: '10mb' }));
@@ -29,6 +31,8 @@ app.use('/api/role', verifyToken, can('master'), rolesRouter);
 app.use('/api/user', userRouter);
 app.use('/api/refresh-token', refreshTokenRouter);
 app.use('/api/article', articleRouter);
+app.use('/api/rating', ratingRouter);
+app.use('/api/comment', commentRouter);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

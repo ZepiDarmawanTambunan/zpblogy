@@ -49,4 +49,4 @@ const destroy = async (req, res) => {
     }
 };
 
-module.exports = { destroy };
+module.exports = destroy;

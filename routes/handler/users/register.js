@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const Joi = require('joi');
-const { User, Op } = require('../../../models');
+const { User, Sequelize: { Op } } = require('../../../models');
 
 const register = async (req, res) => {
     // Skema validasi menggunakan Joi

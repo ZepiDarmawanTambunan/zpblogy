@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
             foreignKey: 'commentableId',
             constraints: false,
             scope: {
-            imageableType: 'article'
+              commentableType: 'article'
             }
         });
         this.hasMany(models.Rating, {
@@ -34,9 +34,9 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         type: DataTypes.INTEGER
       },
-    rate: {
-        type: DataTypes.INTEGER,
-        allowNull: false
+      comment: {
+        type: DataTypes.TEXT,
+        allowNull: false,
     },
     clientId: {
       type: DataTypes.STRING,

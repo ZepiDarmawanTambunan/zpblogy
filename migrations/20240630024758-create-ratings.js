@@ -33,6 +33,10 @@ module.exports = {
           type: Sequelize.STRING,
           allowNull: true
         },
+        ratingableId: {
+          type: Sequelize.INTEGER,
+          allowNull: false
+        },
         ratingableType: {
           type: Sequelize.STRING,
           allowNull: false

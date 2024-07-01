@@ -1,5 +1,5 @@
 // controllers/commentController.js
-const { Comment, User } = require('../../../models');
+const { Comment, User, Rating } = require('../../../models');
 
 const getByParentId = async (req, res) => {
     const parentId = req.params.parentId;
@@ -26,4 +26,4 @@ const getByParentId = async (req, res) => {
     }
 };
 
-module.exports = { getByParentId };
+module.exports = getByParentId;

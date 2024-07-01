@@ -10,14 +10,14 @@ module.exports = (sequelize, DataTypes) => {
             foreignKey: 'ratingableId',
             constraints: false,
             scope: {
-            imageableType: 'article'
+              ratingableType: 'article'
             }
         });
-        this.belongsTo(models.Article, {
+        this.belongsTo(models.Comment, {
           foreignKey: 'ratingableId',
           constraints: false,
           scope: {
-          imageableType: 'comment'
+            ratingableType: 'comment'
           }
         });
     }

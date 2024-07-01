@@ -1,4 +1,4 @@
-const { Comment, User } = require('../../../models');
+const { Comment, User, Rating } = require('../../../models');
 
 const get = async (req, res) => {
     try {
@@ -26,4 +26,4 @@ const get = async (req, res) => {
     }
 };
 
-module.exports = { get };
+module.exports = get;
