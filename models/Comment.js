@@ -13,6 +13,14 @@ module.exports = (sequelize, DataTypes) => {
               commentableType: 'article'
             }
         });
+        this.belongsTo(models.Comment, {
+            foreignKey: 'commentableId',
+            constraints: false,
+            as: 'ParentComment',
+            scope: {
+              commentableType: 'comment'
+            }
+        });
         this.hasMany(models.Rating, {
             foreignKey: 'ratingableId',
             constraints: false,
@@ -21,8 +29,12 @@ module.exports = (sequelize, DataTypes) => {
             }
         });
         this.hasMany(models.Comment, {
-          foreignKey: 'parentId',
-          as: 'replies' // Opsional: Jika ingin memberi nama hubungan
+            foreignKey: 'commentableId',
+            constraints: false,
+            as: 'childComments',
+            scope: {
+              commentableType: 'comment'
+            }
         });
     }
   };
@@ -59,16 +71,6 @@ module.exports = (sequelize, DataTypes) => {
     commentableType: {
       type: DataTypes.STRING,
       allowNull: false
-    },
-    parentId: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      references: {
-        model: 'comments',
-        key: 'id'
-      },
-      onUpdate: 'CASCADE',
-      onDelete: 'CASCADE'
     },
     status: {
       type: DataTypes.INTEGER,

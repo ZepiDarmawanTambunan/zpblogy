@@ -11,6 +11,20 @@ const get = async (req, res) => {
                 {
                     model: Rating,
                     attributes: ['id', 'rate', 'clientId', 'userId', 'status', 'createdAt', 'updatedAt']
+                },
+                {
+                    model: Comment,
+                    as: 'childComments',
+                    include: [
+                        {
+                            model: User,
+                            attributes: ['id', 'username']
+                        },
+                        {
+                            model: Rating,
+                            attributes: ['id', 'rate', 'clientId', 'userId', 'status', 'createdAt', 'updatedAt']
+                        }
+                    ]
                 }
             ]
         });

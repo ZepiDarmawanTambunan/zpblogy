@@ -6,7 +6,8 @@ const create = async (req, res) => {
         title: Joi.string().required(),
         content: Joi.string().required(),
         status: Joi.number().integer().min(0).max(1).default(1),
-        tags: Joi.array().items(Joi.string()).optional()
+        tags: Joi.array().items(Joi.string()).optional(),
+        thumbnail: Joi.string().optional().allow(null)
     });
 
     try {
@@ -18,11 +19,18 @@ const create = async (req, res) => {
 
         const { title, content, status, tags } = value;
         
+        // Tangani pembuatan thumbnail jika ada dalam request
+        let thumbnail = null;
+        if (req.files && req.files.thumbnail) {
+            thumbnail = `/uploads/${req.files.thumbnail[0].filename}`;
+        }
+
         // Buat artikel baru
         const article = await Article.create({
             title,
             content,
             status,
+            thumbnail,
             userId: req.user.userId
         });
 
@@ -36,13 +44,11 @@ const create = async (req, res) => {
         }
 
         // Tangani pembuatan gambar terkait artikel
-        if (req.files && req.files.length > 0) {
-            const imageInstances = await Promise.all(req.files.map(async (file) => {
+        if (req.files && req.files.images) {
+            const imageInstances = await Promise.all(req.files.images.map(async (file) => {
                 return await Image.create({ url: `/uploads/${file.filename}`, imageableId: article.id, imageableType: 'article' });
             }));
         }
-
-        console.log('Files:', req.files);
 
         return res.status(201).json({ status: 'success', data: article });
     } catch (error) {

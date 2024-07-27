@@ -13,7 +13,8 @@ const get = async (req, res) => {
                 },
                 {
                     model: Tag,
-                    attributes: ['id', 'name', 'status']
+                    attributes: ['id', 'name', 'status'],
+                    through: { attributes: [] } // Menghindari pengambilan kolom dari tabel penghubung yaitu article tag
                 },
                 {
                     model: Image,

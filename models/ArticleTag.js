@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       onUpdate: 'CASCADE',
       onDelete: 'CASCADE'
-    }
+    },
   }, {
     sequelize,
     modelName: 'ArticleTag',

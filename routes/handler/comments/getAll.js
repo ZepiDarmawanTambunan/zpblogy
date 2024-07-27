@@ -1,7 +1,22 @@
+'use strict';
+
 const { Comment, User, Rating } = require('../../../models');
 
 const getAll = async (req, res) => {
-    const { articleId, commentId, limit = 10, offset = 0 } = req.query;
+    const { articleId, commentId } = req.query;
+    let { limit = 10, offset = 0 } = req.query;
+
+    // Validasi dan parsing limit dan offset
+    limit = parseInt(limit, 10);
+    offset = parseInt(offset, 10);
+
+    if (isNaN(limit) || limit <= 0) {
+        limit = 10;
+    }
+
+    if (isNaN(offset) || offset < 0) {
+        offset = 0;
+    }
 
     try {
         let comments;
@@ -23,14 +38,15 @@ const getAll = async (req, res) => {
                         attributes: ['id', 'rate', 'clientId', 'userId', 'status', 'createdAt', 'updatedAt']
                     }
                 ],
-                limit: parseInt(limit),
-                offset: parseInt(offset)
+                limit,
+                offset
             });
         } else if (commentId) {
             // Fetch replies for a specific comment including User and Ratings
             comments = await Comment.findAll({
                 where: {
-                    parentId: commentId
+                    commentableId: commentId,
+                    commentableType: 'comment'
                 },
                 include: [
                     {
@@ -42,8 +58,8 @@ const getAll = async (req, res) => {
                         attributes: ['id', 'rate', 'clientId', 'userId', 'status', 'createdAt', 'updatedAt']
                     }
                 ],
-                limit: parseInt(limit),
-                offset: parseInt(offset)
+                limit,
+                offset
             });
         } else {
             // Fetch all comments including User and Ratings
@@ -58,8 +74,8 @@ const getAll = async (req, res) => {
                         attributes: ['id', 'rate', 'clientId', 'userId', 'status', 'createdAt', 'updatedAt']
                     }
                 ],
-                limit: parseInt(limit),
-                offset: parseInt(offset)
+                limit,
+                offset
             });
         }
 

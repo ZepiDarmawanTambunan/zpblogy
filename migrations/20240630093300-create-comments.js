@@ -37,16 +37,6 @@ module.exports = {
           type: Sequelize.STRING,
           allowNull: false
         },
-        parentId: {
-          type: Sequelize.INTEGER,
-          allowNull: true,
-          references: {
-            model: 'comments', // Mengacu ke dirinya sendiri (self-referencing)
-            key: 'id'
-          },
-          onUpdate: 'CASCADE',
-          onDelete: 'CASCADE'
-        },
         status: {
           type: Sequelize.INTEGER,
           allowNull: false,

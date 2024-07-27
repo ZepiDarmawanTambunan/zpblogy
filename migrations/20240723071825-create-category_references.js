@@ -4,39 +4,35 @@ module.exports = {
   up: async function (queryInterface, Sequelize) {
     const transaction = await queryInterface.sequelize.transaction();
     try {
-      await queryInterface.createTable('articles', {
+      await queryInterface.createTable('category_references', {
         id: {
-          allowNull: false,
-          autoIncrement: true,
+          type: Sequelize.INTEGER,
           primaryKey: true,
-          type: Sequelize.INTEGER
+          autoIncrement: true,
+          allowNull: false,
         },
-        title: {
+        categoryableId: {
+          type: Sequelize.INTEGER,
+          allowNull: false,
+        },
+        categoryableType: {
           type: Sequelize.STRING,
           allowNull: false,
         },
-        content: {
-          type: Sequelize.TEXT,
-          allowNull: false,
-        },
-        status: {
-          type: Sequelize.TINYINT,
-          allowNull: false,
-          defaultValue: 1,
-        },
-        thumbnail: {
-          type: Sequelize.STRING,
-          allowNull: true,
-        },
-        userId: {
+        categoryId: {
           type: Sequelize.INTEGER,
           allowNull: false,
           references: {
-            model: 'users',
+            model: 'categories',
             key: 'id'
           },
           onUpdate: 'CASCADE',
-          onDelete: 'CASCADE',
+          onDelete: 'CASCADE'
+        },
+        status: {
+          type: Sequelize.INTEGER,
+          allowNull: false,
+          defaultValue: 1
         },
         createdAt: {
           allowNull: false,
@@ -55,10 +51,11 @@ module.exports = {
       throw error;
     }
   },
+
   down: async function (queryInterface, Sequelize) {
     const transaction = await queryInterface.sequelize.transaction();
     try {
-      await queryInterface.dropTable('articles', { transaction });
+      await queryInterface.dropTable('category_references', { transaction });
       await transaction.commit();
     } catch (err) {
       await transaction.rollback();

@@ -15,10 +15,6 @@ module.exports = {
           type: Sequelize.INTEGER,
           allowNull: false,
         },
-        clientId: {
-          type: Sequelize.STRING,
-          allowNull: false
-        },
         userId: {
           type: Sequelize.INTEGER,
           allowNull: true,

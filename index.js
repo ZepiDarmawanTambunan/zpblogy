@@ -12,6 +12,7 @@ const userRouter = require('./routes/users');
 const refreshTokenRouter = require('./routes/refreshTokens');
 const articleRouter = require('./routes/articles');
 const ratingRouter = require('./routes/ratings');
+const tagRouter = require('./routes/tags');
 const commentRouter = require('./routes/comments');
 
 const app = express();
@@ -32,6 +33,7 @@ app.use('/api/user', userRouter);
 app.use('/api/refresh-token', refreshTokenRouter);
 app.use('/api/article', articleRouter);
 app.use('/api/rating', ratingRouter);
+app.use('/api/tag', tagRouter);
 app.use('/api/comment', commentRouter);
 
 // Error handling middleware
@@ -45,7 +47,7 @@ app.use((err, req, res, next) => {
     });
 });
 
-app.listen(process.env.PORT || 3000, () => {
+app.listen(process.env.PORT || 5000, () => {
     console.log('server is running');
 });
 

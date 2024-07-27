@@ -6,7 +6,6 @@ router.get('/', commentsHandler.getAll);
 router.post('/', commentsHandler.create);
 router.put('/:id', commentsHandler.update);
 router.get('/:id', commentsHandler.get);
-router.get('/parent/:parentId', commentsHandler.getByParentId);
 router.delete('/:id', commentsHandler.destroy);
 
 module.exports = router;

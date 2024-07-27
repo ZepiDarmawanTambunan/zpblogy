@@ -28,6 +28,25 @@ module.exports = (sequelize, DataTypes) => {
           commentableType: 'article'
         }
       });
+      this.hasMany(models.CategoryReference, {
+        foreignKey: 'categoryableId',
+        constraints: false,
+        scope: {
+          categoryableType: 'article',
+        },
+      });
+      this.belongsToMany(models.Category, {
+        through: {
+          model: models.CategoryReference,
+          unique: false,
+          scope: {
+            categoryableType: 'article',
+          },
+        },
+        foreignKey: 'categoryableId',
+        constraints: false,
+        as: 'categories',
+      });
     }
   }
 
@@ -50,6 +69,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.TINYINT,
       allowNull: false,
       defaultValue: 1
+    },
+    thumbnail: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     userId: {
       type: DataTypes.INTEGER,

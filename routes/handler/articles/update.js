@@ -12,6 +12,7 @@ const update = async (req, res) => {
         content: Joi.string().optional(),
         status: Joi.number().integer().min(0).max(1).optional(),
         tags: Joi.array().items(Joi.string()).optional(),
+        thumbnail: Joi.string().optional().allow(null)
     });
 
     try {
@@ -21,7 +22,7 @@ const update = async (req, res) => {
             return res.status(400).json({ status: 'error', message: error.details[0].message });
         }
 
-        const { title, content, status, tags } = value;
+        const { title, content, status, tags, thumbnail } = value;
 
         // Cari artikel berdasarkan ID
         const article = await Article.findByPk(id);
@@ -29,8 +30,15 @@ const update = async (req, res) => {
             return res.status(404).json({ status: 'error', message: 'Article not found' });
         }
 
+        // Master dan user yang dapat melakukan update
+        if (req.user.role !== 'master') {
+            if (article.userId != req.user.userId) {
+                return res.status(403).json({ status: 'error', message: 'You don\'t have permission' });
+            }
+        }
+
         // Perbarui artikel
-        await article.update({ title, content, status });
+        await article.update({ title, content, status, thumbnail });
 
         // Tangani perubahan tag jika ada
         if (tags) {
@@ -44,18 +52,37 @@ const update = async (req, res) => {
             await article.setTags([]);
         }
 
+        // Tangani pembaruan thumbnail jika ada
+        if (req.files && req.files.thumbnail) {
+            const newThumbnailPath = `/uploads/${req.files.thumbnail[0].filename}`;
+            
+            // Hapus thumbnail lama dari sistem file dan database
+            if (article.thumbnail) {
+                const oldFilePath = path.join(__dirname, '../../../public', article.thumbnail);
+                if (fs.existsSync(oldFilePath)) {
+                    fs.unlink(oldFilePath, (err) => {
+                        if (err) {
+                            console.error(`Failed to delete file: ${oldFilePath}`, err);
+                        } else {
+                            console.log(`File deleted: ${oldFilePath}`);
+                        }
+                    });
+                }
+            }
+
+            // Perbarui path thumbnail di artikel
+            await article.update({ thumbnail: newThumbnailPath });
+        }
+
         // Tangani pembaruan gambar terkait artikel
-        if (req.files && req.files.length > 0) {
-            // Cari gambar yang terkait dengan artikel
+        if (req.files && req.files.images) {
+            // Hapus gambar lama
             const images = await Image.findAll({
                 where: { imageableId: article.id, imageableType: 'article' }
             });
 
-            // Hapus gambar dari database dan sistem file
             await Promise.all(images.map(async (image) => {
-                // Hapus file gambar dari sistem file
                 const filePath = path.join(__dirname, '../../../public', image.url);
-
                 if (fs.existsSync(filePath)) {
                     fs.unlink(filePath, (err) => {
                         if (err) {
@@ -64,16 +91,12 @@ const update = async (req, res) => {
                             console.log(`File deleted: ${filePath}`);
                         }
                     });
-                } else {
-                    console.warn(`File not found: ${filePath}`);
                 }
-
-                // Hapus entri gambar dari database
                 await image.destroy();
             }));
 
-            // Tambahkan gambar yang baru
-            await Promise.all(req.files.map(async (file) => {
+            // Tambahkan gambar baru
+            await Promise.all(req.files.images.map(async (file) => {
                 await Image.create({ url: `/uploads/${file.filename}`, imageableId: article.id, imageableType: 'article' });
             }));
         }

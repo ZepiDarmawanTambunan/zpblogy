@@ -6,3 +6,56 @@
 - npx sequelize-cli db:migrate:undo --name 20230630084523-create-users
 - npx sequelize-cli seed:generate --name role-seeder
 - npx sequelize-cli db:seed:all
+
+- fitur tarik comment dan edit comment jika createdAt tidak kurang dari 10 menit ini dilakukan di fe
+- di detail article (get article dan get comment secara terpisah) agar tidak lemot
+- commentar hanya bisa level 2
+
+- users, roles, refreshTokens, tag, comment, ratings
+
+==========================================================================================================
+
+- model Comment
+createCommentArticleUserId
+createCommentArticleClientId
+createChildCommentUserId
+createChildCommentClientId
+
+getChildComment
+    pakai limit nanti hasmore
+getCommentArticle
+    pakai limit nanti hasmore
+
+create
+    user / client = required
+    if user = harus ada
+    article / comment = harus ada
+    article / comment yg dikomentari user != value.user
+
+destroy
+    user / client = comment.userId/comment.clientId atau master
+    hapus juga rating & child comment
+
+update
+    user / client = comment.userId/comment.clientId
+
+- model Rating
+createRatingArticleUserId
+createRatingArticleClientId
+createRatingCommentUserId
+createRatingCommentClientId
+
+getAllByArticleId
+    tanpa limit
+getAllByCommentId
+    tanpa limit
+
+create
+    user / client = required
+    if user = harus ada
+    article / comment = harus ada
+    article / comment yg dirating user != value.user
+
+destroy
+    user / client = comment.userId/comment.clientId atau master
+    hapus juga rating & child comment
